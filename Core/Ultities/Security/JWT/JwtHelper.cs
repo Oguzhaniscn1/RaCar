@@ -10,15 +10,15 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Ultities.Security.JWT
 {
     public class JwtHelper : ITokenHelper
     {
-        public IConfiguration Configuration { get; }//appsteingsi okumak için
+        public IConfiguration Configuration { get; }//Iconfiguration appsettingsi okumak için.
         private TokenOptions _tokenOptions;
         private DateTime _accessTokenExpiration;
+
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
