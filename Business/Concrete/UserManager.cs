@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Core.Ultities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -12,7 +13,7 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        private readonly IUserDal _userDal;
+        private IUserDal _userDal;
 
         public UserManager(IUserDal userDal)
         {
@@ -27,7 +28,7 @@ namespace Business.Concrete
 
         public IResult DeleteUser(User user)
         {
-            _userDal.Delete(user); 
+            _userDal.Delete(user);
             return new SuccessResult();
         }
 
@@ -36,6 +37,7 @@ namespace Business.Concrete
             var userList = _userDal.GetAll();
             return new SuccessDataResult<List<User>>(userList);
         }
+
 
         public IDataResult<User> GetUserById(int userId)
         {
@@ -48,5 +50,19 @@ namespace Business.Concrete
             _userDal.Update(user);
             return new SuccessResult();
         }
+        //
+
+
+
+        public User GetByEmail(string email)
+        {
+            return _userDal.Get(x => x.Email == email);
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
+
     }
 }
